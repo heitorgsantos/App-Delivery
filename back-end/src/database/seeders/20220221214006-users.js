@@ -11,6 +11,8 @@ module.exports = {
           email: 'adm@deliveryapp.com',
           password: 'a4c86edecc5aee06eff8fdeda69e0d04',
           role: 'administrator',
+          createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+          updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         {
           id: 2,
@@ -18,6 +20,8 @@ module.exports = {
           email: 'fulana@deliveryapp.com',
           password: '3c28d2b0881bf46457a853e0b07531c64',
           role: 'seller',
+          createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+          updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         {
           id: 3,
@@ -25,6 +29,8 @@ module.exports = {
           email: 'zebirita@email.com',
           password: '3c28d2b0881bf46457a853e0b07531c64',
           role: 'customer',
+          createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+          updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         
       ] 

@@ -1,4 +1,4 @@
-const { users } = require('../../models/index');
+const { user } = require('../../models/index');
 const constructorError = require('../../utils/constructorError');
 const { schemaUser } = require('../../utils/joiValidations');
 
@@ -8,17 +8,17 @@ const { schemaUser } = require('../../utils/joiValidations');
 //   return true;
 // }
 
-const findUserService = async ({ email }) => await users.findOne({ where: { email }});
+const findUserService = async (email) => await user.findOne({ where: { email }});
 
 const createUserService = async ({ name, email, password, role }) => {
-
   const { error } = schemaUser.validate({ name, email, password, role })
-
   if(error) throw constructorError(400, error.message);
 
-  const create = await users.create({ name, email, password, role });
+  const find = await user.findOne({ where: { email }});
 
-  // if (!findUserService({ email })) throw constructorError(409, 'User already registered');
+  if (find) throw constructorError(409, 'User already registered');
+
+  const create = await user.create({ name, email, password, role });
 
   return create;
 };

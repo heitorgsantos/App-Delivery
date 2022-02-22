@@ -4,7 +4,7 @@ const products = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     url_image: DataTypes.STRING,
   },
-  {tableName: 'Products'});
+  {tableName: 'products'});
   return product;
 }
 

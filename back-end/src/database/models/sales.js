@@ -9,12 +9,12 @@ const sales = (sequelize, DataTypes) => {
   {tableName: 'sales'})
 
   sale.associate = (models) => {
-    sale.belongsTo(models.Users,
+    sale.belongsTo(models.user,
       {
         foreignKey: 'user_id',
         otherKey: 'seller_id',
         through: sale,
-        as: 'user',
+        as: 'users',
       }
     )
   }

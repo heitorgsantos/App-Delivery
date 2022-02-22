@@ -6,7 +6,7 @@ const sales = (sequelize, DataTypes) => {
     sale_date: DataTypes.DATE,
     status: DataTypes.STRING,
   },
-  {tableName: 'Sales'})
+  {tableName: 'sales'})
 
   sale.associate = (models) => {
     sale.belongsTo(models.Users,

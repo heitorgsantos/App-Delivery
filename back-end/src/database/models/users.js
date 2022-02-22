@@ -5,7 +5,7 @@ const user = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     role: DataTypes.STRING,
   },
-  {tableName: 'Users'});
+  {tableName: 'users'});
 
   users.associate = (models) => {
     users.hasMany(models.Sales,

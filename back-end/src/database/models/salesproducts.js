@@ -5,7 +5,7 @@ const salesProduct = (sequelize, DataTypes) => {
   {tableName: 'salesProducts'});
 
   saleProduct.associate = (models) => {
-    saleProduct.belongsToMany(models.product,
+    saleProduct.belongsToMany(models.products,
       {
         foreignKey: 'product_id',
         otherKey: 'sale_id',
@@ -13,7 +13,7 @@ const salesProduct = (sequelize, DataTypes) => {
         as: 'products',
       } 
     ),
-    saleProduct.belongsToMany(models.sale,
+    saleProduct.belongsToMany(models.sales,
       {
         foreignKey: 'sale_id',
         otherKey: 'product_id',

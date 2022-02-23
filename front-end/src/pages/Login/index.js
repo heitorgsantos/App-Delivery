@@ -6,18 +6,26 @@ import Button from '../../components/Button';
 function Login() {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [isVisibleErrorEmail, setIsVisibleErrorEmail] = useState(false);
+  const [isVisibleErrorPassword, setIsVisibleErrorPassword] = useState(false);
+
 
   const handleEmail = (event) => {
     if(validate.validateEmail(event.target.value)) {
-
-      setEmailInput(event.target.value)
+      setEmailInput(event.target.value);
+    }
+    else {
+      setIsVisibleErrorEmail(true);
     }
   }
 
   const handlePassword = (event) => {
     if(validate.validatePassword(event.target.value)) {
-
       setPasswordInput(event.target.value)
+    }
+    else {
+      setIsVisibleErrorPassword(true);
+
     }
   }
 

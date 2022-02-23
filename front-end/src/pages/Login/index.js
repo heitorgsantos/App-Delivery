@@ -9,31 +9,15 @@ function Login() {
   const [isVisibleErrorEmail, setIsVisibleErrorEmail] = useState(false);
   const [isVisibleErrorPassword, setIsVisibleErrorPassword] = useState(false);
 
-
-  const handleEmail = (event) => {
-    if(validate.validateEmail(event.target.value)) {
-      setEmailInput(event.target.value);
-    }
-    else {
-      setIsVisibleErrorEmail(true);
-    }
+  const handleChange = (setState, event) => {
+    setState(event.target.value);
   }
 
-  const handlePassword = (event) => {
-    if(validate.validatePassword(event.target.value)) {
-      setPasswordInput(event.target.value)
-    }
-    else {
-      setIsVisibleErrorPassword(true);
-
-    }
-  }
-
-  return (
+   return (
     <form>
       <h1>Login</h1>
       <Input
-        handleChange={ handleEmail }
+        handleChange={ (event) => handleChange(setEmailInput, event) }
         dataTest="common_login__input-email"
         value={emailInput}
         id="email-input"
@@ -42,7 +26,7 @@ function Login() {
       />
 
       <Input
-        handleChange={ handlePassword }
+        handleChange={ (event) => handleChange(setPasswordInput, event) }
         dataTest="common_login__input-password"
         value={passwordInput}
         id="password-input"

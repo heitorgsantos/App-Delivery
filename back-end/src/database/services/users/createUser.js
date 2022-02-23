@@ -9,15 +9,15 @@ const md5 = require('md5');
 //   return true;
 // }
 
-// const findUserService = async (email) => await user.findOne({ where: { email }});
-
 const createUserService = async ({ name, email, password }) => {
   const { error } = schemaUser.validate({ name, email, password })
   if(error) throw constructorError(400, error.message);
 
-  const find = await user.findOne({ where: { email }});
+  const findEmail = await user.findOne({ where: { email }});
+  const findName = await user.findOne({ where: { name }});
 
-  if (find) throw constructorError(409, 'User already registered');
+  if (findEmail) throw constructorError(409, 'User with this e-mail already registered');
+  if (findName) throw constructorError(409, 'User with this name already registered');
 
   // const hashMd5 = md5(password);
   password = md5(password);

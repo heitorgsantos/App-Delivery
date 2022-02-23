@@ -7,7 +7,7 @@ router.post('/register', createUserController);
 router.post('/login', loginUserController);
 
 // Criando rota p/ ver o retorno;
-router.get('/register');
+// router.get('/register');
 // router.update('/');
 // router.delete('/');
 

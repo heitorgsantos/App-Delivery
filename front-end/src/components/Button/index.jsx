@@ -1,8 +1,9 @@
 import React from 'react'
 
-function Button({ dataTest, text }) {
+function Button({ dataTest, text, handleClick }) {
   return (
     <button
+      onClick={ handleClick }
       type="button"
       data-testid={ dataTest }
     >

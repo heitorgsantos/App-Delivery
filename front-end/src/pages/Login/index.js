@@ -5,14 +5,23 @@ function Login() {
     <div>
       <h1>Login</h1>
       <div>
-      <input data-testid="common_login__input-email" type="text" placeholder="email" />
+        <input data-testid="common_login__input-email" type="text" placeholder="email" />
       </div>
       <div>
-      <input data-testid="common_login__input-password" type="password" placeholder="password" />        
+        <input
+          data-testid="common_login__input-password"
+          type="password"
+          placeholder="password"
+        />
       </div>
       <div>
-      <button data-testid="common_login__button-login">Login</button>        
-      <button data-testid="common_login__button-register">Register</button>        
+        <button type="button" data-testid="common_login__button-login">Login</button>
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+        >
+          Register
+        </button>
       </div>
     </div>
   );

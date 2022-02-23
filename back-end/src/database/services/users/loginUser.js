@@ -13,7 +13,7 @@ const loginUserService = async ({ email, password }) => {
 
   const createHashPassword = md5(password);
 
-  await user.
+  await user.update({ password }, { where: {email} })
 
   return createHashPassword;
 };

@@ -1,16 +1,17 @@
 const validateEmail = (email) => {
   const emailRegex = /\S+@\S+\.\S+/;
   const isValidEmail = emailRegex.test(email); 
-   if(!isValidEmail) return { message: 'email inválido!'}
+   if(!isValidEmail) return false;
    return true;
-}
+};
 
 const validatePassword = (password) => {
-  if(password.length < 6) return { message: 'a senha deverá ter no mínimo 6 caracteres!' }
+  if(password.length < 6) return false;
   return true;
-}
+};
 
 module.exports = {
   validateEmail,
   validatePassword,
-}
+};
+

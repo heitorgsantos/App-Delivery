@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import * as validate from '../../utils/validate';
+import Input from '../../components/Input';
 
 function Login() {
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+
   return (
-    <div>
+    <form>
       <h1>Login</h1>
+      <Input
+        dataTest="common_login__input-email"
+        value={emailInput}
+        id="email-input"
+        placeholder="email"
+        type="text"
+      />
+
+      <Input
+        dataTest="common_login__input-password"
+        value={passwordInput}
+        id="password-input"
+        placeholder="password"
+        type="password"
+      />
+     
       <div>
-      <input data-testid="common_login__input-email" type="text" placeholder="email" />
+        <button type="button" data-testid="common_login__button-login">Login</button>
+        <button type="button" data-testid="common_login__button-register">Register</button>
       </div>
-      <div>
-      <input data-testid="common_login__input-password" type="password" placeholder="password" />        
-      </div>
-      <div>
-      <button data-testid="common_login__button-login">Login</button>        
-      <button data-testid="common_login__button-register">Register</button>        
-      </div>
-    </div>
+    </form>
   );
 }
 

@@ -14,9 +14,9 @@ const createUserService = async ({ name, email, password, role }) => {
   const { error } = schemaUser.validate({ name, email, password, role })
   if(error) throw constructorError(400, error.message);
 
-  const find = await user.findOne({ where: { email }});
+  //const find = await user.findOne({ where: { email }});
 
-  if (find) throw constructorError(409, 'User already registered');
+  if (() => findUserService(email)) throw constructorError(409, 'User already registered');
 
   const create = await user.create({ name, email, password, role });
 

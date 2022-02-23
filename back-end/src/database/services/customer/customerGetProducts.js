@@ -1,4 +1,4 @@
-const { product } = require('../../models/index');
+const { product } = require('../../models');
 
 // get all products
 

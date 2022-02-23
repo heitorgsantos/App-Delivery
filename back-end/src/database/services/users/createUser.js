@@ -10,15 +10,15 @@ const { schemaUser } = require('../../utils/joiValidations');
 
 const findUserService = async (email) => await user.findOne({ where: { email }});
 
-const createUserService = async ({ name, email, password, role }) => {
-  const { error } = schemaUser.validate({ name, email, password, role })
+const createUserService = async ({ name, email, password }) => {
+  const { error } = schemaUser.validate({ name, email, password })
   if(error) throw constructorError(400, error.message);
 
   //const find = await user.findOne({ where: { email }});
 
   if (() => findUserService(email)) throw constructorError(409, 'User already registered');
 
-  const create = await user.create({ name, email, password, role });
+  const create = await user.create({ name, email, password });
 
   return create;
 };

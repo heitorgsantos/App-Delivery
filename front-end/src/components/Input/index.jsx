@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Input({ dataTest, value, id, placeholder, type }) {
+function Input({ dataTest, value, id, placeholder, type, handleChange }) {
 
   return (
      <label htmlFor={ id }>
@@ -10,6 +10,7 @@ function Input({ dataTest, value, id, placeholder, type }) {
         placeholder={ placeholder }
         value={ value }
         id={ id }
+        onChange={ handleChange }
       />
      </label>   
       

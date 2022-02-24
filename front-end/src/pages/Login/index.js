@@ -31,14 +31,12 @@ function Login() {
   };
 
   const handleClick = async () => {
-    try {
-      const { data } = await postLoginData({
-        email: emailInput, password: passwordInput });
-      validateHashMd5(data);
-    } catch (error) {
-      if (error.message.includes('404')) {
-        validateLogin(validate.validateEmail, emailInput, setIsVisibleErrorEmail);
-      }
+    const response = await postLoginData({
+      email: emailInput, password: passwordInput });
+    if (response.data) {
+      validateHashMd5(response.data);
+    } else {
+      validateLogin(validate.validateEmail, emailInput, setIsVisibleErrorEmail);
     }
   };
 

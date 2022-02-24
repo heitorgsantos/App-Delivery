@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
-import * as axios from '../../utils/axios';
+import postLoginData from '../../utils/axios';
 import * as md5 from '../../utils/md5';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -32,7 +32,7 @@ function Login() {
 
   const handleClick = async () => {
     try {
-      const { data } = await axios.postLoginData({
+      const { data } = await postLoginData({
         email: emailInput, password: passwordInput });
       validateHashMd5(data);
     } catch (error) {

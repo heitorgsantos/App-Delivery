@@ -18,4 +18,23 @@ const postLoginData = async (data) => {
   }
 };
 
-export default postLoginData;
+const fetchCustomerProducts = async () => {
+  try {
+    const URL = 'http://localhost:3001/customer/products';
+    const response = await axios.get(URL, {
+      mode: 'no-cors',
+    });
+    console.log('console do fetch');
+    return response;
+  } catch (error) {
+    if (error.response) {
+      return error.response.status;
+    } if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error:', error.message);
+    }
+  }
+};
+
+export { postLoginData, fetchCustomerProducts };

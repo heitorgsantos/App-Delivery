@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
-import postLoginData from '../../utils/axios';
+import { postLoginData } from '../../utils/axios';
 import * as md5 from '../../utils/md5';
 import Input from '../../components/Input';
 import Button from '../../components/Button';

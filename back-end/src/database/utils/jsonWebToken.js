@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const constructorError = require('./constructorError');
 const secret = 'secret_key';
 
 // cria token JWT
@@ -13,7 +14,22 @@ const verifyToken = (token) => {
   return decoded;
 }
 
+const auth = (req, _res, next) => {
+  const { authorization } = req.headers;
+  if(!authorization) throw constructorError(403, 'Token not found');
+  
+  try {
+    const decoded = verifyToken(authorization);
+
+    req.user = decoded;
+    next();
+  } catch (error) {
+    next(constructorError(401, 'Expired or invalid token'));
+  }
+}
+
 module.exports = {
   createToken,
   verifyToken,
+  auth,
 };

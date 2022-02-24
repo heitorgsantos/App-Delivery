@@ -7,7 +7,6 @@ const findAllController = require('../controllers/users/findUserController');
 router.post('/register', createUserController);
 router.post('/login', loginUserController);
 
-// Criando rota p/ ver o retorno;
 router.get('/login', findAllController);
 router.get('/register', findAllController);
 // router.update('/');

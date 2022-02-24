@@ -13,7 +13,8 @@ const loginUserService = async ({ email, password }) => {
   if (!find) throw constructorError(404, 'User not found');
 
   const findObject = find.dataValues;
-  if (findObject.password != md5(password)) throw constructorError(404, 'Incorrect Password');
+
+  if (findObject.password != md5(password)) throw constructorError(403, 'Incorrect Password');
   
   const token = createToken(findObject);
   

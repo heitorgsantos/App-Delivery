@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const constructorError = require('./constructorError');
-const secret = 'secret_key';
+const fs = require('fs');
+const secret = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 
 // cria token JWT
 

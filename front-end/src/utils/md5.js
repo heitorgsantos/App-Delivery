@@ -1,7 +1,7 @@
-const md5 = require('md5');
+const crypto = require('crypto');
 
 const encryptPassword = (password) => {
-  const encryptedPassword = md5(password);
+  const encryptedPassword = crypto.createHash('md5').update(password).digest('hex');
   return encryptedPassword;
 };
 

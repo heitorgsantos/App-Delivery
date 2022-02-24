@@ -20,7 +20,7 @@ const loginUserService = async ({ email, password }) => {
   // await user.update({ password }, { where: {email} })
   // return createHashPassword;
 
-  return token;
+  return {...find.dataValues, token};
 
 };
 

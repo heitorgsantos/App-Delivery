@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import * as validate from '../../utils/validate';
 import postRegisterData from '../../utils/axios';
+import saveLocalStorage from '../../utils/localStorage';
 
 const Register = () => {
   const history = useHistory();
@@ -24,6 +25,7 @@ const Register = () => {
   const postAxios = async () => {
     const response = await postRegisterData(registerData);
     if (response.status === Number('201')) {
+      saveLocalStorage(response.data);
       history.push('/customer/products');
     } else {
       setIsErrorVisible(true);

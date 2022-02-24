@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ dataTest, value, id, placeholder, type, handleChange, name }) {
+function Input({ dataTest, value, id, placeholder, type, handleChange, text, name }) {
   return (
     <label htmlFor={ id }>
+      { text }
       <input
         data-testid={ dataTest }
         type={ type }
@@ -26,8 +27,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-
 };
 
 export default Input;

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import postLoginData from '../../utils/axios';
-import * as md5 from '../../utils/md5';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import saveLocalStorage, {
+  clearLocalStorage,
+} from '../../utils/localStorage';
 
 function Login() {
   const history = useHistory();
@@ -21,17 +23,13 @@ function Login() {
     }));
   };
 
-  const validateHashMd5 = (data) => {
-    const encryptedPassword = md5.encryptPassword(loginData.password);
-    if (encryptedPassword === data.valid) {
-      history.push('/customer/products');
-    }
-  };
-
   const handleClick = async () => {
     const response = await postLoginData(loginData);
-    if (response.data) {
+    if (response.status === Number('200')) {
+      clearLocalStorage();
+      saveLocalStorage(response.data.user);
       validateHashMd5(response.data);
+      history.push('/customer/products');
     } else {
       setIsVisibleErrorEmail(true);
     }
@@ -77,7 +75,11 @@ function Login() {
               && validate.validatePassword(loginData.password))
           }
         />
-        <Button dataTest="common_login__button-register" text="Register" />
+        <Button
+          dataTest="common_login__button-register"
+          text="Register"
+          handleClick={ () => history.push('/register') }
+        />
       </div>
     </form>
   );

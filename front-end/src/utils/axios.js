@@ -1,11 +1,21 @@
 import axios from 'axios';
 
 const postLoginData = async (data) => {
-  const URL = 'http://localhost:3001/login';
-  const response = await axios.post(URL, data, {
-    mode: 'no-cors',
-  });
-  return response;
+  try {
+    const URL = 'http://localhost:3001/login';
+    const response = await axios.post(URL, data, {
+      mode: 'no-cors',
+    });
+    return response;
+  } catch (error) {
+    if (error.response) {
+      return error.response.status;
+    } if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error:', error.message);
+    }
+  }
 };
 
 export default postLoginData;

@@ -9,7 +9,7 @@ const md5 = require('md5');
 //   return true;
 // }
 
-const createUserService = async ({ name, email, password }) => {
+const createUserService = async ({ name, email, password, role = 'customer' }) => {
   const { error } = schemaUser.validate({ name, email, password })
   if(error) throw constructorError(400, error.message);
 
@@ -21,7 +21,7 @@ const createUserService = async ({ name, email, password }) => {
 
   // const hashMd5 = md5(password);
   password = md5(password);
-  await user.create({ name, email, password });
+  await user.create({ name, email, password, role });
 
   return password;
 };

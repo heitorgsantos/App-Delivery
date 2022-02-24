@@ -1,9 +1,12 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Home() {
+  const history = useHistory();
   return (
-    <Redirect to="/login" />
+    <>
+      { history.push('/login') }
+    </>
   );
 }
 

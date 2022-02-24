@@ -28,7 +28,6 @@ function Login() {
     if (response.status === Number('200')) {
       clearLocalStorage();
       saveLocalStorage(response.data.user);
-      validateHashMd5(response.data);
       history.push('/customer/products');
     } else {
       setIsVisibleErrorEmail(true);

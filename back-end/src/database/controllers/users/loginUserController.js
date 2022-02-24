@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     const { email, password } = req.body;
     const login = await loginUserService({ email, password })
     
-    return res.status(200).json({token:  login });
+    return res.status(200).json( login );
   } catch (error) {
     return next(error);
   };

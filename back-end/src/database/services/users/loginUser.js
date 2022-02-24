@@ -16,11 +16,15 @@ const loginUserService = async ({ email, password }) => {
 
   // const createHashPassword = md5(password);
   const token = createToken(find.dataValues);
+  const findObject = find.dataValues;
+  const completeAnswer = {
+    name: findObject.name,
+    email: findObject.email,
+    role: findObject.role,
+    token
+  }
 
-  // await user.update({ password }, { where: {email} })
-  // return createHashPassword;
-
-  return token;
+  return completeAnswer;
 
 };
 

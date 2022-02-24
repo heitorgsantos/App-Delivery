@@ -23,14 +23,18 @@ function Login() {
     }
   };
 
+  const validateHashMd5 = (data) => {
+    const encryptedPassword = md5.encryptPassword(passwordInput);
+    if (encryptedPassword === data.valid) {
+      history.push('/customer/products');
+    }
+  };
+
   const handleClick = async () => {
     try {
-      const encryptedPassword = md5.encryptPassword(passwordInput);
       const { data } = await axios.postLoginData({
         email: emailInput, password: passwordInput });
-      if (encryptedPassword === data.valid) {
-        history.push('/customer/products');
-      }
+      validateHashMd5(data);
     } catch (error) {
       if (error.message.includes('404')) {
         validateLogin(validate.validateEmail, emailInput, setIsVisibleErrorEmail);

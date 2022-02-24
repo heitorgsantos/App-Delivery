@@ -1,6 +1,7 @@
 const { user } = require('../../models/index');
 const constructorError = require('../../utils/constructorError');
 const { schemaLogin } = require('../../utils/joiValidations');
+const { createToken } = require('../../utils/jsonWebToken');
 const md5 = require('md5');
 
 // const findUserService = async (email) => await user.findOne({ where: { email }});
@@ -13,11 +14,14 @@ const loginUserService = async ({ email, password }) => {
 
   if (!find) throw constructorError(404, 'User not found');
 
-  const createHashPassword = md5(password);
+  // const createHashPassword = md5(password);
+  const token = createToken(find.dataValues);
 
   // await user.update({ password }, { where: {email} })
+  // return createHashPassword;
 
-  return createHashPassword;
+  return token;
+
 };
 
 module.exports = {

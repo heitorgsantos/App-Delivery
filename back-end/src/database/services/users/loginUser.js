@@ -4,19 +4,19 @@ const { schemaLogin } = require('../../utils/joiValidations');
 const { createToken } = require('../../utils/jsonWebToken');
 const md5 = require('md5');
 
-// const findUserService = async (email) => await user.findOne({ where: { email }});
-
 const loginUserService = async ({ email, password }) => {
   const { error } = schemaLogin.validate({ email, password })
   if(error) throw constructorError(400, error.message);
 
-  const find = await user.findOne({ where: { email }});
+  const find = await user.findOne({ where: { email }} );
 
   if (!find) throw constructorError(404, 'User not found');
 
-  // const createHashPassword = md5(password);
-  const token = createToken(find.dataValues);
   const findObject = find.dataValues;
+  if (findObject.password != md5(password)) throw constructorError(404, 'Incorrect Password');
+  
+  const token = createToken(findObject);
+  
   const completeAnswer = {
     name: findObject.name,
     email: findObject.email,

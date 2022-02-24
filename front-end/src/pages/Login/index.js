@@ -8,35 +8,32 @@ import Button from '../../components/Button';
 
 function Login() {
   const history = useHistory();
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
   const [isVisibleErrorEmail, setIsVisibleErrorEmail] = useState(false);
 
-  const handleChange = (setState, event) => {
-    setState(event.target.value);
-  };
-  const validateLogin = (callback, data, setState) => {
-    if (callback(data)) {
-      setState(true);
-    } else {
-      setState(false);
-    }
+  const handleChange = ({ target: { name, value } }) => {
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const validateHashMd5 = (data) => {
-    const encryptedPassword = md5.encryptPassword(passwordInput);
+    const encryptedPassword = md5.encryptPassword(loginData.password);
     if (encryptedPassword === data.valid) {
       history.push('/customer/products');
     }
   };
 
   const handleClick = async () => {
-    const response = await postLoginData({
-      email: emailInput, password: passwordInput });
+    const response = await postLoginData(loginData);
     if (response.data) {
       validateHashMd5(response.data);
     } else {
-      validateLogin(validate.validateEmail, emailInput, setIsVisibleErrorEmail);
+      setIsVisibleErrorEmail(true);
     }
   };
 
@@ -44,11 +41,12 @@ function Login() {
     <form className="form-login">
       <h1>Login</h1>
       <Input
-        handleChange={ (event) => handleChange(setEmailInput, event) }
+        handleChange={ handleChange }
         dataTest="common_login__input-email"
-        value={ emailInput }
+        value={ loginData.email }
         id="email-input"
         placeholder="email"
+        name="email"
         type="text"
       />
       {isVisibleErrorEmail && (
@@ -59,10 +57,11 @@ function Login() {
         </p>
       )}
       <Input
-        handleChange={ (event) => handleChange(setPasswordInput, event) }
+        handleChange={ handleChange }
         dataTest="common_login__input-password"
-        value={ passwordInput }
+        value={ loginData.password }
         id="password-input"
+        name="password"
         placeholder="password"
         type="password"
       />
@@ -74,8 +73,8 @@ function Login() {
           text="Login"
           disabled={
             !(
-              validate.validateEmail(emailInput)
-              && validate.validatePassword(passwordInput))
+              validate.validateEmail(loginData.email)
+              && validate.validatePassword(loginData.password))
           }
         />
         <Button dataTest="common_login__button-register" text="Register" />

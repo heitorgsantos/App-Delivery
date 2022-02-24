@@ -17,10 +17,17 @@ const loginUserService = async ({ email, password }) => {
   // const createHashPassword = md5(password);
   const token = createToken(find.dataValues);
 
+  const newUser = {
+    email: find.dataValues.email,
+    name: find.dataValues.name,
+    role: find.dataValues.role,
+    token,
+  }
+
   // await user.update({ password }, { where: {email} })
   // return createHashPassword;
 
-  return {...find.dataValues, token};
+  return newUser;
 
 };
 

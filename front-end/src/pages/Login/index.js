@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 function Login() {
+  const history = useHistory();
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [isVisibleErrorEmail, setIsVisibleErrorEmail] = useState(false);
@@ -64,7 +66,11 @@ function Login() {
               && validate.validatePassword(passwordInput))
           }
         />
-        <Button dataTest="common_login__button-register" text="Register" />
+        <Button
+          dataTest="common_login__button-register"
+          text="Register"
+          handleClick={ () => history.push('/register') }
+        />
       </div>
     </form>
   );

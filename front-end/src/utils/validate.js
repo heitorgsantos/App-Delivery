@@ -15,7 +15,13 @@ const validatePassword = (password) => {
   return true;
 };
 
+const validateName = (name) => {
+  const maxLength = 12;
+  return name.length > maxLength;
+};
+
 module.exports = {
   validateEmail,
   validatePassword,
+  validateName,
 };

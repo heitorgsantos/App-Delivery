@@ -1,57 +1,67 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
+import { postLoginData } from '../../utils/axios';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import saveLocalStorage, {
+  clearLocalStorage,
+} from '../../utils/localStorage';
 
 function Login() {
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const history = useHistory();
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
   const [isVisibleErrorEmail, setIsVisibleErrorEmail] = useState(false);
-  const [isVisibleErrorPassword, setIsVisibleErrorPassword] = useState(false);
 
-  const handleChange = (setState, event) => {
-    setState(event.target.value);
+  const handleChange = ({ target: { name, value } }) => {
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
-  const validateLogin = (callback, data, setState) => {
-    if (!callback(data)) {
-      setState(true);
+
+  const handleClick = async () => {
+    const response = await postLoginData(loginData);
+    if (response.status === Number('200')) {
+      clearLocalStorage();
+      saveLocalStorage(response.data.user);
+      history.push('/customer/products');
     } else {
-      setState(false);
+      setIsVisibleErrorEmail(true);
     }
-  };
-
-  const handleClick = () => {
-    validateLogin(validate.validateEmail, emailInput, setIsVisibleErrorEmail);
-    validateLogin(
-      validate.validatePassword,
-      passwordInput,
-      setIsVisibleErrorPassword,
-    );
   };
 
   return (
     <form className="form-login">
       <h1>Login</h1>
       <Input
-        handleChange={ (event) => handleChange(setEmailInput, event) }
+        handleChange={ handleChange }
         dataTest="common_login__input-email"
-        value={ emailInput }
+        value={ loginData.email }
         id="email-input"
         placeholder="email"
+        name="email"
         type="text"
       />
       {isVisibleErrorEmail && (
-        <p data-testid="common_login__element-invalid-email">error</p>
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          Erro: Email não cadastrado
+        </p>
       )}
       <Input
-        handleChange={ (event) => handleChange(setPasswordInput, event) }
+        handleChange={ handleChange }
         dataTest="common_login__input-password"
-        value={ passwordInput }
+        value={ loginData.password }
         id="password-input"
+        name="password"
         placeholder="password"
         type="password"
       />
-      {isVisibleErrorPassword && <p>error</p>}
 
       <div>
         <Button
@@ -60,11 +70,15 @@ function Login() {
           text="Login"
           disabled={
             !(
-              validate.validateEmail(emailInput)
-              && validate.validatePassword(passwordInput))
+              validate.validateEmail(loginData.email)
+              && validate.validatePassword(loginData.password))
           }
         />
-        <Button dataTest="common_login__button-register" text="Register" />
+        <Button
+          dataTest="common_login__button-register"
+          text="Register"
+          handleClick={ () => history.push('/register') }
+        />
       </div>
     </form>
   );

@@ -26,7 +26,6 @@ const loginUserService = async ({ email, password }) => {
   }
 
   return completeAnswer;
-
 };
 
 module.exports = {

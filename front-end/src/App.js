@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Home from './pages/Home/index';
-import Register from './pages/Register/index';
-import Products from './pages/Customer/index';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Products from './pages/Customer';
 
 function App() {
   return (

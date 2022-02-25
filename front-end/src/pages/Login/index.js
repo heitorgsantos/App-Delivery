@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
-import postLoginData from '../../utils/axios';
+import { postLoginData } from '../../utils/axios';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import saveLocalStorage, {

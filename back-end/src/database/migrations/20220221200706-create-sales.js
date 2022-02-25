@@ -35,7 +35,7 @@ module.exports = {
 
       total_price: {
         allowNull: false,
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(10, 2),
       },
       delivery_address: {
         type: Sequelize.STRING

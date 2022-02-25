@@ -1,6 +1,6 @@
 const sales = (sequelize, DataTypes) => {
   const sale = sequelize.define('sale', {
-    total_price: DataTypes.FLOAT,
+    total_price: DataTypes.DECIMAL(10, 2),
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,

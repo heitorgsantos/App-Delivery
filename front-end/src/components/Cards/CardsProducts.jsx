@@ -1,24 +1,11 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
+import MyContext from '../../context/Context';
 
 // import fetch from 'node-fetch';
 // import { fetchCustomerProducts } from '../../utils/axios';
 
 function CardsProducts() {
-  const [products, setProducts] = React.useState([]);
-
-  const fetchProducts = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:3001/customer/products');
-      setProducts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  React.useEffect(() => { fetchProducts(); }, []);
-
-  console.log(products);
+  const { products } = useContext(MyContext);
 
   return (
     <div className="products-cards">

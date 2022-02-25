@@ -7,9 +7,11 @@ import { postRegisterData } from '../../utils/axios';
 import saveLocalStorage, {
   clearLocalStorage,
 } from '../../utils/localStorage';
+import MyContext from '../../context/Context';
 
 const Register = () => {
   const history = useHistory();
+  const { setUser } = useContext(MyContext);
   const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
@@ -29,6 +31,7 @@ const Register = () => {
     if (response.status === Number('201')) {
       clearLocalStorage();
       saveLocalStorage(response.data);
+      setUser(response.data);
       history.push('/customer/products');
     } else {
       setIsErrorVisible(true);

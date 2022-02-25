@@ -13,7 +13,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
       url_image: {
         allowNull: true,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import { postLoginData } from '../../utils/axios';
@@ -7,9 +7,11 @@ import Button from '../../components/Button';
 import saveLocalStorage, {
   clearLocalStorage,
 } from '../../utils/localStorage';
+import MyContext from '../../context/Context';
 
 function Login() {
   const history = useHistory();
+  const { setUser } = useContext(MyContext);
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -27,7 +29,8 @@ function Login() {
     const response = await postLoginData(loginData);
     if (response.status === Number('200')) {
       clearLocalStorage();
-      saveLocalStorage(response.data.user);
+      saveLocalStorage(response.data);
+      setUser(response.data);
       history.push('/customer/products');
     } else {
       setIsVisibleErrorEmail(true);

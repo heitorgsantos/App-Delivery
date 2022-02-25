@@ -36,7 +36,6 @@ const fetchCustomerProducts = async () => {
     const response = await axios.get(URL, {
       mode: 'no-cors',
     });
-    console.log('console do fetch');
     return response;
   } catch (error) {
     if (error.response) {

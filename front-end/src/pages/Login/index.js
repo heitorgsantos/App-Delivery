@@ -30,6 +30,7 @@ function Login() {
     if (response.status === Number('200')) {
       clearLocalStorage();
       saveLocalStorage(response.data);
+      console.log(response.data);
       setUser(response.data);
       history.push('/customer/products');
     } else {

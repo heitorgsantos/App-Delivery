@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { router } = require('../database/routers/routes');
 const { routerCustomer } = require('../database/routers/routerCustomer');
@@ -8,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(express.static((__dirname, '../../public')));
+app.use('/images', express.static(path.join(__dirname, '..', '..', 'public', 'images')));
 
 app.use('/', router);
 app.use('/', routerCustomer);

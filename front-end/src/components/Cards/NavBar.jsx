@@ -1,8 +1,20 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../../context/Context';
+import { clearLocalStorage } from '../../utils/localStorage';
 
 function NavBar() {
+  // const [logout, setLogout] = useState(false);
   const { user } = useContext(MyContext);
+  const history = useHistory();
+
+  const handleLogout = () => {
+    console.log('logout', history);
+    clearLocalStorage();
+    history.push('/');
+  };
+  console.log(history);
+
   return (
     <div className="nav-bar">
       <button
@@ -21,6 +33,7 @@ function NavBar() {
         { user.name }
       </h3>
       <button
+        onClick={ handleLogout }
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
       >

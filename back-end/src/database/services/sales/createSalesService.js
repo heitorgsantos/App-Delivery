@@ -1,24 +1,27 @@
-const { sales, salesProducts } = require('../../models/index');
+const { sale, salesProducts, user } = require('../../models/index');
+const constructorError = require('../../utils/constructorError');
 const { schemaSales } = require('../../utils/joiValidations');
 
 const createSalesService = async (...input) => {
-  const { user_id, seller_id, total_price, delivery_addres, delivery_number, sale_date, status, products } = input[0];
-  
-  // const input.includes(())
-  const { error, value } = schemaSales.validate({ user_id, seller_id, total_price, delivery_addres, delivery_number, sale_date, status, products });
-  console.log(error, 'ERORRR')
-  console.log('-------------------' )
-  console.log(value), 'error VALUE';
+  const { user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status_sale, products } = input[0];
+  const saleInput = { user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status_sale };
 
-  if (error) throw constructorError(400, 'Bora endoidar!');
+  const findUser = await user.findOne({ where: { id: user_id }});
+  if (!findUser) throw constructorError(404, 'User not found');
 
-  const createSales = await sales.create(input);
+  const findSeller = await user.findOne({ where: { id: seller_id }});
+  if (!findSeller) throw constructorError(404, 'Seller not found');
+  //console.log(findSeller);
+
+  const { error } = schemaSales.validate(saleInput);
+  if(error) throw constructorError(400, error.message);
+  console.log(saleInput)
+
+  const createSales = await sale.create(saleInput);
 
   return createSales;
-
 };
 
 module.exports = {
   createSalesService,
 };
-// { "user_id": 1, "seller_id": 3, "total_pricequatity": 31.20, "delivery_addres": "rua são joão", "delivery_number": "18", "sale_date": "25/02/2022", "status": "", [ { "product_id": 1, "quatity": 2 }, { "product_id": 6, "quatity": 2 } ] } 

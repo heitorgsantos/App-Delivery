@@ -12,15 +12,13 @@ const schemaLogin = Joi.object({
 });
 
 const schemaSales = Joi.object({
-  total_price: Joi.number(),
-  // Joi.decimal().greater(100.0)
-  delivery_address: Joi.string(),
-  products: Joi.array().required(),
-  delivery_number: Joi.string(),
-  sale_date: Joi.required(),
-  status: Joi.string(),
   user_id: Joi.number(),
   seller_id: Joi.number(),
+  total_price: Joi.number().precision(2).required(),
+  delivery_address: Joi.string().required(),
+  delivery_number: Joi.string().required(),
+  sale_date: Joi.required().required(),
+  status_sale: Joi.string().required(),
 });
 
 module.exports = {

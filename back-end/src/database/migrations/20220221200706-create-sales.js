@@ -11,7 +11,9 @@ module.exports = {
       // referência do model user
       user_id: {
         type: Sequelize.INTEGER,
+        foreignKey: true,
         allowNull: false,
+        defaultValue: 0,
         references: {
           model: 'users',
           key: 'id',
@@ -20,10 +22,11 @@ module.exports = {
         onDelete: 'CASCADE'
 
       },
-      // referência do model user
       seller_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        foreignKey: true,
+        defaultValue: 0,
         references: {
           model: 'users',
           key: 'id',
@@ -36,6 +39,7 @@ module.exports = {
       total_price: {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 2),
+        defaultValue: 0,
       },
       delivery_address: {
         type: Sequelize.STRING
@@ -43,14 +47,16 @@ module.exports = {
       delivery_number: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: '',
       },
       sale_date: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
-      status: {
+      status_sale: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: '',
       },
       createdAt: {
         allowNull: false,

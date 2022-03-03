@@ -12,6 +12,7 @@ module.exports = {
       // referência model products
       product_id: {
         type: Sequelize.INTEGER,
+        foreignKey: true,
         references: {
           model: 'products',
           key: 'id'
@@ -22,6 +23,7 @@ module.exports = {
       // referência model sales
       sale_id: {
         type: Sequelize.INTEGER,
+        foreignKey: true,
         references: {
           model: 'sales',
           key: 'id'

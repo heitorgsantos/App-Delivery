@@ -17,7 +17,6 @@ const schemaSales = Joi.object({
   total_price: Joi.number().precision(2).required(),
   delivery_address: Joi.string().required(),
   delivery_number: Joi.string().required(),
-  sale_date: Joi.required().required(),
   status_sale: Joi.string().required(),
 });
 

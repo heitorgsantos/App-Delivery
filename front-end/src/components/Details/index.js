@@ -18,7 +18,7 @@ const Details = ({ address, handleChange }) => {
 
   const handleClick = async () => {
     getId();
-    // history.push(`/customer/orders/${id}`);
+    history.push(`/customer/orders/${id}`);
   };
   return (
     <>

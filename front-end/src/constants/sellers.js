@@ -14,3 +14,5 @@ export const sellers = [
 ];
 
 export const five = 5;
+
+export const tableHeadData = ['Item, Descrição, Quantidade, Valor Unitário, Sub-total'];

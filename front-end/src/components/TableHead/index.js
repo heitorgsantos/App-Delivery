@@ -1,14 +1,12 @@
 import React from 'react';
+import { tableHeadData } from '../../constants/sellers';
 
 const TableHead = () => (
   <thead>
     <tr>
-      <th>Item</th>
-      <th>Descrição</th>
-      <th>Quantidade</th>
-      <th>Valor Unitário</th>
-      <th>Sub-total</th>
-      <th>Remover Item</th>
+      { tableHeadData.map((tableData) => (
+        <th key={ tableData }>{ tableData }</th>
+      ))}
     </tr>
   </thead>
 );

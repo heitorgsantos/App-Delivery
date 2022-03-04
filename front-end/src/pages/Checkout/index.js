@@ -36,7 +36,10 @@ const Checkout = () => {
     <>
       <NavBar />
       <table>
-        <TableHead />
+        <tr>
+          <TableHead />
+          <th>Remover Item</th>
+        </tr>
         { cartItems
           .filter((product) => product.quantity !== 0)
           .map((cartItem, index) => (

@@ -53,7 +53,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
-      status_sale: {
+      status: {
         allowNull: false,
         type: Sequelize.STRING,
         defaultValue: '',

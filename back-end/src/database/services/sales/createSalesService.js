@@ -6,7 +6,7 @@ const createSalesService = async (...input) => {
   
   const { user_id, seller_id, total_price, delivery_address, delivery_number, products } = input[0];
   
-  const status_sale = 'Pendente';
+  const status = 'Pendente';
   
   const ts = Date.now();
   const sales_date = new Date(ts).toISOString();
@@ -14,7 +14,7 @@ const createSalesService = async (...input) => {
   const secondSplit = firstSplit[1].split('.');
   const sale_date = `${firstSplit[0]} ${secondSplit[0]}`;
 
-  const saleInput = { user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status_sale };
+  const saleInput = { user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status };
 
 
   const findUser = await user.findOne({ where: { id: user_id }});
@@ -32,7 +32,7 @@ const createSalesService = async (...input) => {
     await salesProduct.create({
       product_id: products[i].product_id,
       sale_id: createSales.id,
-      quantity: products[i].quatity,
+      quantity: products[i].quantity,
     });
   }
 

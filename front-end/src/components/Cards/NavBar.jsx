@@ -13,33 +13,34 @@ function NavBar() {
     clearLocalStorage();
     history.push('/');
   };
-  console.log(history);
 
   return (
-    <div className="nav-bar">
+    <nav className="nav-bar">
       <button
-        data-testid="customer_products__element-navbar-link-products"
         type="button"
+        data-testid="customer_products__element-navbar-link-products"
+        onClick={ () => history.push('/customer/products') }
       >
-        produtos
+        Produtos
       </button>
       <button
-        data-testid="customer_products__element-navbar-link-orders"
         type="button"
+        data-testid="customer_products__element-navbar-link-orders"
+        onClick={ () => history.push('/customer/orders') }
       >
-        pedidos
+        Pedidos
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
         { user.name }
       </h3>
       <button
+        type="button"
         onClick={ handleLogout }
         data-testid="customer_products__element-navbar-link-logout"
-        type="button"
       >
-        sair
+        Sair
       </button>
-    </div>
+    </nav>
   );
 }
 

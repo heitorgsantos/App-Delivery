@@ -10,7 +10,7 @@ const createSalesService = async (...input) => {
   
   const ts = Date.now();
   const sales_date = new Date(ts).toISOString();
-  const firstSplit = sales_date.split('T');;
+  const firstSplit = sales_date.split('T');
   const secondSplit = firstSplit[1].split('.');
   const sale_date = `${firstSplit[0]} ${secondSplit[0]}`;
 

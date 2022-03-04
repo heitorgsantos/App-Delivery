@@ -7,14 +7,19 @@ import Details from '../../components/Details';
 
 const Checkout = () => {
   const { cartItems, totalPrice, getTotalPrice, setCartItems } = useContext(MyContext);
+  const [seller, setSeller] = useState(1);
   const [address, setAddress] = useState({
     address: '',
-    number: 0,
+    number: '',
   });
 
   useEffect(() => {
     getTotalPrice();
   }, [getTotalPrice]);
+
+  const handleSeller = ({ target: { value } }) => {
+    setSeller(Number(value));
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setAddress((prevState) => ({
@@ -54,8 +59,10 @@ const Checkout = () => {
       </div>
       <div>
         <Details
+          seller={ seller }
           address={ address }
           handleChange={ handleChange }
+          setAddress={ handleSeller }
         />
       </div>
     </>

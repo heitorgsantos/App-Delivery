@@ -1,36 +1,53 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '../Button';
 import Input from '../Input/index';
 import MyContext from '../../context/Context';
 import { postOrderProducts } from '../../utils/axios';
+import { sellers, five } from '../../constants/sellers';
 
-const Details = ({ address, handleChange }) => {
+const Details = ({ seller, address, handleChange, setAddress }) => {
   const history = useHistory();
-  const { user, cartItems } = useContext(MyContext);
-  const [id, setId] = useState(0);
+  const { user, cartItems, totalPrice } = useContext(MyContext);
 
-  const getId = async () => {
-    const response = await postOrderProducts(cartItems
-      .filter((prod) => prod.quantity !== 0), user.token);
-    console.log(response.data);
-    setId(response.data);
-  };
+  const createOrderObject = () => ({
+    user_id: user.id,
+    seller_id: seller,
+    total_price: Number(totalPrice.toFixed(2)),
+    delivery_address: address.address,
+    delivery_number: address.number,
+    products: cartItems
+      .filter((prod) => prod.quantity !== 0)
+      .map((prod) => ({ product_id: prod.id, quantity: prod.quantity })),
+  });
 
   const handleClick = async () => {
-    getId();
-    history.push(`/customer/orders/${id}`);
+    console.log(createOrderObject());
+    const response = await postOrderProducts(createOrderObject(), user.token);
+    console.log(response.data);
+    history.push(`/customer/orders/${response.data.id}`);
   };
+
   return (
     <>
       <label htmlFor="seller-select">
         Vendedor:
         <select
           id="seller-select"
+          value={ seller }
           data-testid="customer_checkout__select-seller"
+          onChange={ setAddress }
         >
-          <option value="seller">Fulana</option>
+          { sellers.map((sell) => (
+            <option
+              key={ sell.id }
+              value={ sell.id }
+            >
+              { sell.name }
+
+            </option>
+          ))}
         </select>
       </label>
       <Input
@@ -56,6 +73,7 @@ const Details = ({ address, handleChange }) => {
         text="Finalizar pedido"
         handleClick={ handleClick }
         dataTest="customer_checkout__button-submit-order"
+        disabled={ !(address.address.length > five && address.number.length > 0) }
       />
     </>
   );

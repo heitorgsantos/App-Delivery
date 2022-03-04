@@ -26,7 +26,7 @@ function NavBar() {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => history.push('/*') }
+        onClick={ () => history.push('/customer/orders') }
       >
         Pedidos
       </button>

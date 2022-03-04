@@ -44,7 +44,9 @@ export const fetchCustomerProducts = async () => {
 export const postOrderProducts = async (data, token) => {
   try {
     const response = await axios.post(`${apiUrl}/customer/checkout`, data, {
-      Authorization: token,
+      headers: {
+        authorization: token,
+      },
     });
     return response;
   } catch (error) {

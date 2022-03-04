@@ -9,7 +9,6 @@ const MyProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
-  // const [id, setId] = useState(0);
 
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();

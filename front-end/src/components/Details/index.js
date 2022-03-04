@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '../Button';
@@ -9,11 +9,13 @@ import { postOrderProducts } from '../../utils/axios';
 const Details = ({ address, handleChange }) => {
   const history = useHistory();
   const { user, cartItems } = useContext(MyContext);
+  const [id, setId] = useState(0);
 
   const getId = async () => {
     const response = await postOrderProducts(cartItems
       .filter((prod) => prod.quantity !== 0), user.token);
     console.log(response.data);
+    setId(response.data);
   };
 
   const handleClick = async () => {

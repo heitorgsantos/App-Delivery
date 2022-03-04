@@ -8,18 +8,18 @@ function CardOrder() {
       onClick={ () => history.push('/customer/orders/id') }
       type="button"
     >
-      <span
-        // data-testid={ `customer_orders__element-order-id-${id}` }
+      <span 
+        data-testid={ `customer_orders__element-order-id-id` }
       >
         pedido
       </span>
       <span
-        // data-testid={ `customer_orders__element-delivery-status-${id}` }
+        data-testid={ `customer_orders__element-delivery-status-id` }
       >
         status
       </span>
       <span
-        // data-testid={ `customer_orders__element-order-date-${id}` }
+        data-testid={ `customer_orders__element-order-date-id` }
       >
         data
       </span>

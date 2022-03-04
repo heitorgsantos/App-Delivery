@@ -8,14 +8,18 @@ const user = (sequelize, DataTypes) => {
   {tableName: 'users'});
 
   user.associate = (models) => {
-    user.belongsToMany(models.sale,
+    user.hasMany(models.sale,
       {
         foreignKey: 'user_id',
-        otherKey: 'seller_id',
-        through: users,
-        as: 'sales',
+        as: 'user_id',
+      }
+    );
+    user.hasMany(models.sale,
+      {
+        foreignKey: 'seller_id',
+        as: 'seller_id',
       }  
-    )
+    );
   }
   return users;
 }

@@ -5,6 +5,7 @@ const products = (sequelize, DataTypes) => {
     url_image: DataTypes.STRING,
   },
   {tableName: 'products'});
+  
   return product;
 }
 

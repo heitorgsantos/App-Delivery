@@ -4,19 +4,23 @@ const sales = (sequelize, DataTypes) => {
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
-    status: DataTypes.STRING,
+    status_sale: DataTypes.STRING,
   },
   {tableName: 'sales'})
 
-  sales.associate = (models) => {
-    sales.belongsTo(models.user,
+  sale.associate = (models) => {
+    sale.belongsTo(models.user,
       {
         foreignKey: 'user_id',
-        otherKey: 'seller_id',
-        through: sale,
-        as: 'users',
+        as: 'user',
       }
-    )
+    );
+    sale.belongsTo(models.user,
+      {
+        foreignKey: 'seller_id',
+        as: 'seller',
+      }
+    );
   }
   return sale;
 }

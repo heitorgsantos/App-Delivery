@@ -11,7 +11,7 @@ router.post('/login', loginUserController);
 
 router.get('/login', findAllController);
 router.get('/register', findAllController);
-router.get('/id', findSalesSellerById);
+router.get('/seller/orders/id', findSalesSellerById);
 // router.update('/');
 // router.delete('/');
 

@@ -21,6 +21,7 @@ const loginUserService = async ({ email, password }) => {
   const token = createToken(findObject);
   
   const completeAnswer = {
+    id: findObject.id,
     name: findObject.name,
     email: findObject.email,
     role: findObject.role,

@@ -8,7 +8,7 @@
   "engineStrict": true,
   "scripts": {
     "pm2": "./node_modules/.bin/pm2",
-    "jest": "./node_modules/.bin/jest",
+    "jest": "C:/Rodris/Trybe/Projects/sd-013-c-project-delivery-app/node_modules/.bin/jest",
     "start": "./scripts/prepare-for-test.sh",
     "stop": "(pm2 stop all && pm2 delete all) | grep 'PM2'",
     "dev": "./scripts/prepare-for-dev.sh",

@@ -4,7 +4,8 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import * as validate from '../../utils/validate';
 import { postRegisterData } from '../../utils/axios';
-import saveLocalStorage, {
+import {
+  saveLocalStorage,
   clearLocalStorage,
 } from '../../utils/localStorage';
 import MyContext from '../../context/Context';
@@ -30,9 +31,9 @@ const Register = () => {
     const response = await postRegisterData(registerData);
     if (response.status === Number('201')) {
       clearLocalStorage();
-      saveLocalStorage(response.data);
-      setUser(response.data);
+      saveLocalStorage('user', response.data);
       history.push('/customer/products');
+      setUser(response.data);
     } else {
       setIsErrorVisible(true);
     }

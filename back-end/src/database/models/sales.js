@@ -4,7 +4,7 @@ const sales = (sequelize, DataTypes) => {
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
-    status_sale: DataTypes.STRING,
+    status: DataTypes.STRING,
   },
   {tableName: 'sales'})
 

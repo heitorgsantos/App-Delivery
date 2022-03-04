@@ -18,7 +18,7 @@ const schemaSales = Joi.object({
   delivery_address: Joi.string().required(),
   delivery_number: Joi.string().required(),
   sale_date: Joi.required().required(),
-  status_sale: Joi.string().required(),
+  status: Joi.string().required(),
 });
 
 module.exports = {

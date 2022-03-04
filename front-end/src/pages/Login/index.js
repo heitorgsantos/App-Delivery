@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import { postLoginData } from '../../utils/axios';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import saveLocalStorage, {
+import MyContext from '../../context/Context';
+import {
+  saveLocalStorage,
   clearLocalStorage,
 } from '../../utils/localStorage';
-import MyContext from '../../context/Context';
 
 function Login() {
   const history = useHistory();
@@ -29,8 +30,7 @@ function Login() {
     const response = await postLoginData(loginData);
     if (response.status === Number('200')) {
       clearLocalStorage();
-      saveLocalStorage(response.data);
-      console.log(response.data);
+      saveLocalStorage('user', response.data);
       setUser(response.data);
       history.push('/customer/products');
     } else {

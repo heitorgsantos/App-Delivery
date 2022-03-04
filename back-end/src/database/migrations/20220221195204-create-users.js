@@ -14,10 +14,12 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: ''
       },
       password: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: '',
       },
       role: {
         allowNull:true,

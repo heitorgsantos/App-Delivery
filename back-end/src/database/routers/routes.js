@@ -4,7 +4,7 @@ const createUserController = require('../controllers/users/createUserController'
 const loginUserController = require('../controllers/users/loginUserController');
 const findAllController = require('../controllers/users/findUserController');
 const createSalesController = require('../controllers/sales/createSalesController');
-const findSalesSellerById = require('../controllers/sales/findSalesSallerController');
+const findSalesSellerById = require('../controllers/sales/findSalesSellerController');
 const findSalesByCustomerId = require('../controllers/sales/findSalesByCustomerId');
 const findAll = require('../controllers/sales/findAll');
 

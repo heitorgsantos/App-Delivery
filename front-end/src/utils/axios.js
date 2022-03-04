@@ -1,23 +1,19 @@
 import axios from 'axios';
 
+const apiUrl = 'http://localhost:3001';
+
 export const postRegisterData = async (data) => {
   try {
-    const URL = 'http://localhost:3001/register';
-    const response = await axios.post(URL, data, {
-      mode: 'no-cors',
-    });
+    const response = await axios.post(`${apiUrl}/register`, data);
     return response;
   } catch (error) {
     return error.response;
   }
 };
 
-const postLoginData = async (data) => {
+export const postLoginData = async (data) => {
   try {
-    const URL = 'http://localhost:3001/login';
-    const response = await axios.post(URL, data, {
-      mode: 'no-cors',
-    });
+    const response = await axios.post(`${apiUrl}/login`, data);
     return response;
   } catch (error) {
     if (error.response) {
@@ -30,12 +26,9 @@ const postLoginData = async (data) => {
   }
 };
 
-const fetchCustomerProducts = async () => {
+export const fetchCustomerProducts = async () => {
   try {
-    const URL = 'http://localhost:3001/customer/products';
-    const response = await axios.get(URL, {
-      mode: 'no-cors',
-    });
+    const response = await axios.get(`${apiUrl}/customer/products`);
     return response;
   } catch (error) {
     if (error.response) {
@@ -48,4 +41,13 @@ const fetchCustomerProducts = async () => {
   }
 };
 
-export { postLoginData, fetchCustomerProducts };
+export const postOrderProducts = async (data, token) => {
+  try {
+    const response = await axios.post(`${apiUrl}/customer/checkout`, data, {
+      Authorization: token,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

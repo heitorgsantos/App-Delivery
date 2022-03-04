@@ -1,92 +1,87 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../../context/Context';
+import {
+  decreaseQuantityInCart,
+  increaseQuantityInCart,
+} from '../../helpers/functions';
 
-// import fetch from 'node-fetch';
-// import { fetchCustomerProducts } from '../../utils/axios';
+function CardsProducts({ product }) {
+  const { name, id, url_image: urlImage, price } = product;
+  const [newQuantity, setQuantity] = useState(0);
+  const { setCartItems } = useContext(MyContext);
 
-function CardsProducts() {
-  const { products } = useContext(MyContext);
-  const history = useHistory();
-  const [quantity, setQuantity] = React.useState(0);
-
-  // set quantity from product.id
-  const handleAddQuantity = (id) => {
-    if (products.find((product) => product.id === id)) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  // set quantity from product.id
-  const handleRemQuantity = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleCheckout = () => {
-    if (quantity > 0) {
-      history.push('/customer/checkout');
+  const handleClick = ({ target: { value } }) => {
+    if (value >= 0) {
+      setQuantity(Number(value));
+      setCartItems((prevState) => increaseQuantityInCart(
+        prevState, id, Number(value),
+      ));
     }
   };
 
   return (
-    <div className="products-cards">
-      {products.map((product) => (
-        <div className="product-card" key={ product.id }>
-          <h1
-            data-testid={ `customer_products__element-card-title-${product.id}` }
-          >
-            { product.name }
-
-          </h1>
-          <h2
-            data-testid={ `customer_products__element-card-price-${product.id}` }
-          >
-            {` R$${product.price.toString().replace('.', ',')} `}
-
-          </h2>
-          <img
-            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            src={ product.url_image }
-            alt={ product.name }
-          />
-          <div className="product-quantity">
-            <button
-              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-              type="button"
-              onClick={ handleRemQuantity }
-            >
-              -
-            </button>
-            <input
-              data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              type="number"
-              name="quantity"
-              value={ quantity }
-            />
-            <button
-              data-testid={ `customer_products__button-card-add-item-${product.id}` }
-              type="button"
-              onClick={ () => handleAddQuantity(product.id) }
-            >
-              +
-            </button>
-          </div>
-        </div>
-      ))}
-      <button
-        onClick={ handleCheckout }
-        className="product-card"
-        data-testid="customer_products__button-cart"
-        type="button"
+    <div className="product-card">
+      <h1
+        data-testid={ `customer_products__element-card-title-${id}` }
       >
-        <h5 data-testid="customer_products__button-cart">
-          total
-        </h5>
-      </button>
+        { name }
+
+      </h1>
+      <h2
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
+        { price.replace('.', ',') }
+
+      </h2>
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        alt={ name }
+        width="100px"
+      />
+      <div className="product-quantity">
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => {
+            if (newQuantity > 0) {
+              setQuantity((prevState) => prevState - 1);
+              setCartItems((prevState) => decreaseQuantityInCart(prevState, id));
+            }
+          } }
+        >
+          -
+        </button>
+        <input
+          name="manual"
+          type="text"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ newQuantity }
+          onChange={ handleClick }
+        />
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          onClick={ () => {
+            setQuantity((prevState) => prevState + 1);
+            setCartItems((prevState) => increaseQuantityInCart(prevState, id));
+          } }
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
+
+CardsProducts.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.string,
+    urlImage: PropTypes.string,
+    id: PropTypes.number,
+  }),
+}.isRequired;
 
 export default CardsProducts;

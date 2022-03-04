@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 function CardOrder() {
   const history = useHistory();
-  let id = 1;
-  
+  const id = 1;
   return (
     <button
       onClick={ () => history.push('/customer/orders/id') }

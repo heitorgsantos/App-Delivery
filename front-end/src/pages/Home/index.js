@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getLocalStorage } from '../../utils/localStorage';
 
 function Home() {
-  let path = '/';
+  let path = '/login';
 
   if (getLocalStorage('user')) {
     path = '/customer/products';

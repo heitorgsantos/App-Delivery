@@ -7,7 +7,7 @@ function CardOrder({ order }) {
   const history = useHistory();
   return (
     <button
-      onClick={ () => history.push('/customer/orders/id') }
+      onClick={ () => history.push(`/customer/orders/${id}`) }
       type="button"
     >
       <span

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-function CardOrder() {
+function CardOrder({ order }) {
+  const { id, sale_date: date, status, total_price: totalPrice } = order;
   const history = useHistory();
-  const id = 1;
   return (
     <button
       onClick={ () => history.push('/customer/orders/id') }
@@ -12,22 +13,31 @@ function CardOrder() {
       <span
         data-testid={ `customer_orders__element-order-id-${id}` }
       >
-        pedido
+        { id }
       </span>
       <span
         data-testid={ `customer_orders__element-delivery-status-${id}` }
       >
-        status
+        { status }
       </span>
       <span
         data-testid={ `customer_orders__element-order-date-${id}` }
       >
-        data
+        { date }
       </span>
-      <span>valor</span>
+      <span>{ totalPrice }</span>
     </button>
 
   );
 }
+
+CardOrder.propTypes = {
+  order: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    sale_date: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    total_price: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default CardOrder;

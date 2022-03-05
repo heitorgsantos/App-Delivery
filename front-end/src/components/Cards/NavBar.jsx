@@ -9,8 +9,8 @@ function NavBar() {
   const history = useHistory();
 
   const handleLogout = () => {
-      clearLocalStorage();
-      history.push('/');
+    clearLocalStorage();
+    history.push('/');
   };
 
   return (

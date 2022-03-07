@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 function SellerOrdersCard({ sellerOrder }) {
   const { id, sale_date: date, status, total_price: totalPrice, address } = sellerOrder;

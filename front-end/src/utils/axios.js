@@ -64,3 +64,12 @@ export const fetchOrders = async () => {
     return error.response;
   }
 };
+
+export const getSellerOrdersById = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/seller/orders/${id}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

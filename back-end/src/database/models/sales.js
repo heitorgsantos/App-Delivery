@@ -18,7 +18,7 @@ const sales = (sequelize, DataTypes) => {
     sale.belongsTo(models.user,
       {
         foreignKey: 'seller_id',
-        as: 'sales',
+        as: 'seller',
       }
     );
 

@@ -5,10 +5,10 @@ import { getLocalStorage } from '../../utils/localStorage';
 function Home() {
   let path = '/login';
 
+  const history = useHistory();
   if (getLocalStorage('user')) {
     path = '/customer/products';
   }
-  const history = useHistory();
   return (
     <>
       { history.push(path) }

@@ -23,9 +23,13 @@ function CardOrder({ order }) {
       <span
         data-testid={ `customer_orders__element-order-date-${id}` }
       >
-        { date }
+        { new Date(date).toLocaleDateString() }
       </span>
-      <span>{ totalPrice }</span>
+      <span
+        data-testid={ `customer_orders__element-card-price-${id}` }
+      >
+        { totalPrice.replace('.', ',') }
+      </span>
     </button>
 
   );

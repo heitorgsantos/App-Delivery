@@ -53,3 +53,24 @@ export const postOrderProducts = async (data, token) => {
     return error.response;
   }
 };
+
+// get all orders
+export const fetchOrders = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/customer/orders`, {
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const fetchSellerOrders = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/seller/orders`, {
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

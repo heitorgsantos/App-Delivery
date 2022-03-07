@@ -74,4 +74,3 @@ export const fetchSellerOrders = async () => {
     return error.response;
   }
 };
-

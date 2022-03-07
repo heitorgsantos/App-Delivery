@@ -8,6 +8,7 @@ import MyContext from '../../context/Context';
 import {
   saveLocalStorage,
   clearLocalStorage,
+  getLocalStorage,
 } from '../../utils/localStorage';
 
 function Login() {
@@ -38,6 +39,9 @@ function Login() {
     }
   };
 
+  if (getLocalStorage('user')) {
+    history.push('/customer/products');
+  }
   return (
     <form className="form-login">
       <h1>Login</h1>

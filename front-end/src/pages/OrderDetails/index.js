@@ -1,7 +1,11 @@
 import React from 'react';
+import NavBar from '../../components/Cards/NavBar';
 
 const OrderDetails = () => (
-  <div>OrderDetails</div>
+  <>
+    <NavBar />
+    <div>OrderDetails</div>
+  </>
 );
 
 export default OrderDetails;

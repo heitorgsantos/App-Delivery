@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
 import { fetchCustomerProducts, fetchOrders, fetchSellerOrders } from '../utils/axios';
+
 import { getLocalStorage, saveLocalStorage } from '../utils/localStorage';
 
 const MyProvider = ({ children }) => {
@@ -11,6 +12,7 @@ const MyProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [sellerOrders, setSellerOrders] = useState([]);
+
 
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();
@@ -40,7 +42,6 @@ const MyProvider = ({ children }) => {
     const { data } = await fetchSellerOrders();
     setSellerOrders(data);
   };
-
   useEffect(() => {
     getProducts();
     getUser();

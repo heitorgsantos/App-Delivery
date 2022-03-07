@@ -11,7 +11,7 @@ function SellerOrder() {
       <div>
         { sellerOrders.map((sellerOrder) => (
           <SellerOrders
-            key={ order.id }
+            key={ sellerOrder.id }
             sellerOrder={ sellerOrder }
           />
         )) }

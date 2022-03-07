@@ -18,9 +18,16 @@ const sales = (sequelize, DataTypes) => {
     sale.belongsTo(models.user,
       {
         foreignKey: 'seller_id',
-        as: 'seller',
+        as: 'sales',
       }
     );
+
+    sale.hasMany(models.salesProduct,
+      {
+        foreignKey: 'sale_id',
+        as: 'products'
+      }
+    )
   }
   return sale;
 }

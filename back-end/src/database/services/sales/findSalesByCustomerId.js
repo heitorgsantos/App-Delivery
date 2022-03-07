@@ -2,7 +2,19 @@ const { sale } = require('../../models/index');
 const constructorError = require('../../utils/constructorError');
 
 const findSalesByCustomerId = async (id) => {
-  const find = await sale.findAll({ where: { id } });
+  const find = await sale.findAll(
+      {
+        where: { user_id: id },
+        include: [
+          {
+            model: salesProduct,
+            as: 'products',
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+          }
+        ]
+      }
+  );
+  
   if (!find) throw constructorError(404, 'Invalid Id, try again!');
 
   return find
@@ -11,3 +23,4 @@ const findSalesByCustomerId = async (id) => {
 module.exports = {
   findSalesByCustomerId,
 };
+

@@ -13,7 +13,6 @@ const MyProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const [sellerOrders, setSellerOrders] = useState([]);
 
-
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();
     setProducts(data.map((prod) => ({ ...prod, quantity: 0 })));

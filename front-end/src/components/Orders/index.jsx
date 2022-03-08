@@ -23,7 +23,7 @@ function CardOrder({ order }) {
       <span
         data-testid={ `customer_orders__element-order-date-${id}` }
       >
-        { new Date(date).toLocaleDateString() }
+        { new Date(date).toLocaleDateString('pt-br') }
       </span>
       <span
         data-testid={ `customer_orders__element-card-price-${id}` }

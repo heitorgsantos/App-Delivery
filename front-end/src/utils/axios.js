@@ -54,6 +54,15 @@ export const postOrderProducts = async (data, token) => {
   }
 };
 
+export const getOrdersById = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/customer/orders/${id}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 // get all orders
 export const fetchOrders = async () => {
   try {

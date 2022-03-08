@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Button from '../../components/Button/index';
-import { getOrdersById } from '../../utils/axios';
+import { getOrdersById, updateCustomerSaleStatus } from '../../utils/axios';
 import { sellers } from '../../constants/sellers';
 import TableData from '../../components/TableData';
 import NavBar from '../../components/Cards/NavBar';
@@ -15,10 +15,16 @@ const OrderDetails = ({ match }) => {
     async () => {
       const { params: { id } } = match;
       const response = await getOrdersById(id);
-      console.log(response.data);
       setOrderDetails(response.data.filter((order) => order.id === Number(id)));
     }, [match],
   );
+
+  const sendStatus = async (stat) => {
+    const { params: { id } } = match;
+    const response = await updateCustomerSaleStatus(id, stat);
+    setOrderDetails((prevState) => prevState.map((state) => (
+      { ...response.data, products: state.products })));
+  };
 
   useEffect(() => {
     getOrders();
@@ -67,7 +73,8 @@ const OrderDetails = ({ match }) => {
             <Button
               dataTest={ `${customerOrder}button-delivery-check` }
               text="Marcar com entregue"
-              disabled
+              disabled={ orderDetail.status !== 'Em Trânsito' }
+              handleClick={ () => sendStatus('Entregue') }
             />
           </div>
           <table>

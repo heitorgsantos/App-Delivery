@@ -32,6 +32,7 @@ const Details = ({ seller, address, handleChange, setSeller }) => {
       createOrderObject(), getLocalStorage('user').token,
     );
     const { data: { id } } = response;
+    console.log(response);
     history.push(`/customer/orders/${id}`);
   };
 

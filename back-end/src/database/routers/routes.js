@@ -22,6 +22,7 @@ router.get('/customer/orders/:id', findSalesByCustomerId);
 router.get('/seller/orders', findAll);
 router.get('/customer/orders', findAll);
 
+router.put('/customer/orders/:id', updateStatusSales);
 router.put('/seller/orders/:id', updateStatusSales);
 
 module.exports = {

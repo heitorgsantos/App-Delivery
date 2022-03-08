@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/Cards/NavBar';
 import SellerOrders from '../../components/Orders/SellerOrders';
-import MyContext from '../../context/Context';
+import { fetchSellerOrders } from '../../utils/axios';
 
 function SellerOrder() {
-  const { sellerOrders } = React.useContext(MyContext);
+  const [sellerOrders, setSellerOrders] = useState([]);
+
+  const getSellerOrders = async () => {
+    const { data } = await fetchSellerOrders();
+    setSellerOrders(data);
+  };
+
+  useEffect(() => {
+    getSellerOrders();
+  }, []);
+
   return (
     <>
       <NavBar />

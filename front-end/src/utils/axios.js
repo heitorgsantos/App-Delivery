@@ -93,6 +93,16 @@ export const updateSaleStatus = async (id, status) => {
   }
 };
 
+export const updateCustomerSaleStatus = async (id, status) => {
+  try {
+    const response = await axios.put(`${apiUrl}/customer/orders/${id}`,
+      { status_sale: status });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const fetchSellerOrders = async () => {
   try {
     const response = await axios.get(`${apiUrl}/seller/orders`, {

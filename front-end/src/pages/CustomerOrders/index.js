@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/Cards/NavBar';
 import CardOrder from '../../components/Orders/index';
-import MyContext from '../../context/Context';
+import { fetchOrders } from '../../utils/axios';
 
 function Orders() {
-  const { orders } = React.useContext(MyContext);
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    const { data } = await fetchOrders();
+    setOrders(data);
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
   return (
     <>
       <NavBar />

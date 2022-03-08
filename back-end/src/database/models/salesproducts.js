@@ -19,7 +19,6 @@ const salesProduct = (sequelize, DataTypes) => {
         otherKey: 'product_id',
         through: saleProduct,
         as: 'sales',
-
       }
     )
   }

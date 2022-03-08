@@ -7,7 +7,7 @@ function SellerOrdersCard({ sellerOrder }) {
   const history = useHistory();
   return (
     <button
-      onClick={ () => history.push(`seller/orders${id}`) }
+      onClick={ () => history.push(`seller/orders/${id}`) }
       type="button"
     >
       <span

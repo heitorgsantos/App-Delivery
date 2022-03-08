@@ -40,7 +40,6 @@ const MyProvider = ({ children }) => {
     const { data } = await fetchSellerOrders();
     setSellerOrders(data);
   };
-
   useEffect(() => {
     getProducts();
     // getUser();

@@ -1,4 +1,4 @@
-const { sale } = require('../../models/index');
+const { sale, salesProduct, product } = require('../../models/index');
 const constructorError = require('../../utils/constructorError');
 
 const findSalesByCustomerId = async (id) => {
@@ -9,7 +9,13 @@ const findSalesByCustomerId = async (id) => {
           {
             model: salesProduct,
             as: 'products',
-            attributes: {exclude: ['createdAt', 'updatedAt']}
+            attributes: {exclude: ['createdAt', 'updatedAt']},
+            include: [
+              {
+                model: product,
+                as: 'products',
+              }
+            ]
           }
         ]
       }

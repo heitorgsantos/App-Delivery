@@ -1,4 +1,4 @@
-const { sale, salesProduct } = require('../../models/index');
+const { sale, salesProduct, product } = require('../../models/index');
 const constructorError = require('../../utils/constructorError');
 
 const findSalesSellerById = async (seller_id) => {
@@ -8,8 +8,14 @@ const findSalesSellerById = async (seller_id) => {
       {
         model: salesProduct,
         as: 'products',
-        attributes: {exclude: ['createdAt', 'updatedAt']}
-      }
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        include: [
+          {
+          model: product,
+          as: 'products',
+        }
+      ]
+      },
     ]
   });
   if (!findSalesSeller) throw constructorError(404, 'Seller not found');

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import { postLoginData } from '../../utils/axios';
@@ -39,9 +39,21 @@ function Login() {
     }
   };
 
-  if (getLocalStorage('user')) {
-    history.push('/customer/products');
+  function checkRole(role) {
+    if (role === 'customer') {
+      history.push('/customer/products');
+    } else if (role === 'seller') {
+      history.push('/seller/orders');
+    }
   }
+
+  useEffect(() => {
+    const userLocalStorage = getLocalStorage('user');
+    if (userLocalStorage) {
+      checkRole(userLocalStorage.role);
+    }
+  });
+
   return (
     <form className="form-login">
       <h1>Login</h1>

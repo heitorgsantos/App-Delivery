@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../../components/Cards/NavBar';
-import CardOrder from '../../components/Orders';
+import CardOrder from '../../components/Orders/index';
 import MyContext from '../../context/Context';
 
 function Orders() {

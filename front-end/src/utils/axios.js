@@ -73,3 +73,13 @@ export const fetchOrders = async () => {
     return error.response;
   }
 };
+
+export const fetchSellerOrders = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/seller/orders`, {
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

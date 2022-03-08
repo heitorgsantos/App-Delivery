@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import { fetchCustomerProducts, fetchOrders } from '../utils/axios';
-import { getLocalStorage, saveLocalStorage } from '../utils/localStorage';
+import { fetchCustomerProducts, fetchOrders, fetchSellerOrders } from '../utils/axios';
+import { saveLocalStorage } from '../utils/localStorage';
 
 const MyProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -10,6 +10,7 @@ const MyProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [sellerOrders, setSellerOrders] = useState([]);
 
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();
@@ -19,10 +20,10 @@ const MyProvider = ({ children }) => {
   const getTotalPrice = () => setTotalPrice(cartItems.reduce((totalPriceProduct,
     { price, quantity }) => totalPriceProduct + price * quantity, 0));
 
-  const getUser = () => {
-    const savedUser = getLocalStorage('user');
-    setUser(savedUser);
-  };
+  // const getUser = () => {
+  //   const savedUser = getLocalStorage('user');
+  //   setUser(savedUser);
+  // };
 
   const saveCartToLocalStorage = useCallback(
     () => saveLocalStorage('cart', cartItems),
@@ -35,10 +36,15 @@ const MyProvider = ({ children }) => {
     setOrders(data);
   };
 
+  const getSellerOrders = async () => {
+    const { data } = await fetchSellerOrders();
+    setSellerOrders(data);
+  };
   useEffect(() => {
     getProducts();
-    getUser();
+    // getUser();
     getOrders();
+    getSellerOrders();
   }, []);
 
   useEffect(() => {
@@ -58,6 +64,7 @@ const MyProvider = ({ children }) => {
     totalPrice,
     getTotalPrice,
     orders,
+    sellerOrders,
   };
 
   return (

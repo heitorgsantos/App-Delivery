@@ -10,6 +10,7 @@ const MyProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [role, setRole] = useState('');
   const [sellerOrders, setSellerOrders] = useState([]);
 
   const getProducts = async () => {
@@ -19,11 +20,6 @@ const MyProvider = ({ children }) => {
 
   const getTotalPrice = () => setTotalPrice(cartItems.reduce((totalPriceProduct,
     { price, quantity }) => totalPriceProduct + price * quantity, 0));
-
-  // const getUser = () => {
-  //   const savedUser = getLocalStorage('user');
-  //   setUser(savedUser);
-  // };
 
   const saveCartToLocalStorage = useCallback(
     () => saveLocalStorage('cart', cartItems),
@@ -42,7 +38,6 @@ const MyProvider = ({ children }) => {
   };
   useEffect(() => {
     getProducts();
-    // getUser();
     getOrders();
     getSellerOrders();
   }, []);
@@ -64,6 +59,8 @@ const MyProvider = ({ children }) => {
     totalPrice,
     getTotalPrice,
     orders,
+    role,
+    setRole,
     sellerOrders,
   };
 

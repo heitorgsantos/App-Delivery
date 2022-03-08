@@ -1,12 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import MyContext from '../../context/Context';
-import { clearLocalStorage } from '../../utils/localStorage';
+import { clearLocalStorage, getLocalStorage } from '../../utils/localStorage';
 
 function NavBar() {
   // const [logout, setLogout] = useState(false);
-  const { user } = useContext(MyContext);
+  const [newUser, setNewUser] = useState({});
   const history = useHistory();
+
+  const getUser = () => {
+    const savedUser = getLocalStorage('user');
+    setNewUser(savedUser);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const handleLogout = () => {
     clearLocalStorage();
@@ -15,22 +23,24 @@ function NavBar() {
 
   return (
     <nav className="nav-bar">
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => history.push('/customer/products') }
-      >
-        Produtos
-      </button>
+      { newUser.role === 'customer' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => history.push('/customer/products') }
+        >
+          Produtos
+        </button>
+      )}
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => history.push('/customer/orders') }
+        onClick={ () => history.push(`/${newUser.role}/orders`) }
       >
         Pedidos
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
-        { user.name }
+        { newUser.name }
       </h3>
       <button
         type="button"

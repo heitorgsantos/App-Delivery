@@ -74,6 +74,25 @@ export const fetchOrders = async () => {
   }
 };
 
+export const getSellerOrdersById = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/seller/orders/${id}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const updateSaleStatus = async (id, status) => {
+  try {
+    const response = await axios.put(`${apiUrl}/seller/orders/${id}`,
+      { status_sale: status });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const fetchSellerOrders = async () => {
   try {
     const response = await axios.get(`${apiUrl}/seller/orders`, {

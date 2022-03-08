@@ -7,7 +7,6 @@ import Details from '../../components/Details';
 const Checkout = () => {
   const { cartItems, totalPrice, getTotalPrice, setCartItems } = useContext(MyContext);
   const [seller, setSeller] = useState(1);
-  console.log(setSeller);
   const [address, setAddress] = useState({
     address: '',
     number: '',
@@ -67,6 +66,7 @@ const Checkout = () => {
           seller={ seller }
           address={ address }
           handleChange={ handleChange }
+          setSeller={ setSeller }
         />
       </div>
     </>

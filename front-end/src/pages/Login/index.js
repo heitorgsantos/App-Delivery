@@ -1,10 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import { postLoginData } from '../../utils/axios';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import MyContext from '../../context/Context';
+import redirect from '../../utils/redirect';
 import {
   saveLocalStorage,
   clearLocalStorage,
@@ -13,7 +14,7 @@ import {
 
 function Login() {
   const history = useHistory();
-  const { setUser } = useContext(MyContext);
+  const { setUser, role, setRole } = useContext(MyContext);
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -27,22 +28,44 @@ function Login() {
     }));
   };
 
+  const saveLogin = useCallback(
+    () => {
+      if (getLocalStorage('user')) {
+        const user = getLocalStorage('user');
+        setRole(user.role);
+      }
+    }, [setRole],
+  );
+
   const handleClick = async () => {
     const response = await postLoginData(loginData);
     if (response.status === Number('200')) {
       clearLocalStorage();
       saveLocalStorage('user', response.data);
       setUser(response.data);
-      history.push('/customer/products');
+      if (response.data.role === 'seller') {
+        history.push('/seller/orders');
+      }
+      if (response.data.role === 'customer') {
+        history.push('/customer/products');
+      }
     } else {
       setIsVisibleErrorEmail(true);
     }
   };
 
-  function checkRole(role) {
-    if (role === 'customer') {
+  useEffect(() => {
+    saveLogin();
+  }, [saveLogin]);
+
+  useEffect(() => () => {
+    setRole('');
+  }, [setRole]);
+
+  function checkRole(userRole) {
+    if (userRole === 'customer') {
       history.push('/customer/products');
-    } else if (role === 'seller') {
+    } else if (userRole === 'seller') {
       history.push('/seller/orders');
     }
   }
@@ -100,6 +123,7 @@ function Login() {
           handleClick={ () => history.push('/register') }
         />
       </div>
+      { role && <Redirect to={ { pathname: redirect(role) } } />}
     </form>
   );
 }

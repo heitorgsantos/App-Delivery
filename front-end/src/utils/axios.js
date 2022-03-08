@@ -62,3 +62,14 @@ export const getOrdersById = async (id) => {
     return error.response;
   }
 };
+
+// get all orders
+export const fetchOrders = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/customer/orders`, {
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

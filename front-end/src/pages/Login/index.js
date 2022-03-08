@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import * as validate from '../../utils/validate';
 import { postLoginData } from '../../utils/axios';
@@ -61,6 +61,21 @@ function Login() {
   useEffect(() => () => {
     setRole('');
   }, [setRole]);
+
+  function checkRole(userRole) {
+    if (userRole === 'customer') {
+      history.push('/customer/products');
+    } else if (userRole === 'seller') {
+      history.push('/seller/orders');
+    }
+  }
+
+  useEffect(() => {
+    const userLocalStorage = getLocalStorage('user');
+    if (userLocalStorage) {
+      checkRole(userLocalStorage.role);
+    }
+  });
 
   return (
     <form className="form-login">

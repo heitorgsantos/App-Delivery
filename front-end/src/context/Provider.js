@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import { fetchCustomerProducts, fetchOrders } from '../utils/axios';
+import { fetchCustomerProducts, fetchOrders, fetchSellerOrders } from '../utils/axios';
 import { saveLocalStorage } from '../utils/localStorage';
 
 const MyProvider = ({ children }) => {
@@ -11,6 +11,7 @@ const MyProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [role, setRole] = useState('');
+  const [sellerOrders, setSellerOrders] = useState([]);
 
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();
@@ -31,9 +32,14 @@ const MyProvider = ({ children }) => {
     setOrders(data);
   };
 
+  const getSellerOrders = async () => {
+    const { data } = await fetchSellerOrders();
+    setSellerOrders(data);
+  };
   useEffect(() => {
     getProducts();
     getOrders();
+    getSellerOrders();
   }, []);
 
   useEffect(() => {
@@ -55,6 +61,7 @@ const MyProvider = ({ children }) => {
     orders,
     role,
     setRole,
+    sellerOrders,
   };
 
   return (

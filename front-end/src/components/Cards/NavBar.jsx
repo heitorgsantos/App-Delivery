@@ -23,17 +23,19 @@ function NavBar() {
 
   return (
     <nav className="nav-bar">
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => history.push('/customer/products') }
-      >
-        Produtos
-      </button>
+      { newUser.role === 'customer' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => history.push('/customer/products') }
+        >
+          Produtos
+        </button>
+      )}
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => history.push('/customer/orders') }
+        onClick={ () => history.push(`/${newUser.role}/orders`) }
       >
         Pedidos
       </button>

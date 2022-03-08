@@ -3,7 +3,7 @@ const constructorError = require('../../utils/constructorError');
 
 const findSalesSellerById = async (seller_id) => {
   const findSalesSeller = await sale.findAll({ 
-    where: { seller_id: seller_id }, 
+    where: { id: seller_id }, 
     include: [
       {
         model: salesProduct,

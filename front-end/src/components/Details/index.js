@@ -8,7 +8,7 @@ import { postOrderProducts } from '../../utils/axios';
 import { sellers, five } from '../../constants/sellers';
 import { getLocalStorage } from '../../utils/localStorage';
 
-const Details = ({ seller, address, handleChange }) => {
+const Details = ({ seller, address, handleChange, setSeller }) => {
   const history = useHistory();
   const { user, cartItems, totalPrice } = useContext(MyContext);
 
@@ -23,13 +23,15 @@ const Details = ({ seller, address, handleChange }) => {
       .map((prod) => ({ product_id: prod.id, quantity: prod.quantity })),
   });
 
+  const handleSeller = ({ target: { value } }) => {
+    setSeller(Number(value));
+  };
+
   const handleClick = async () => {
-    console.log(createOrderObject());
     const response = await postOrderProducts(
       createOrderObject(), getLocalStorage('user').token,
     );
     const { data: { id } } = response;
-    console.log(response);
     history.push(`/customer/orders/${id}`);
   };
 
@@ -40,6 +42,7 @@ const Details = ({ seller, address, handleChange }) => {
         <select
           id="seller-select"
           value={ seller }
+          onChange={ handleSeller }
           data-testid="customer_checkout__select-seller"
         >
           { sellers.map((sell) => (

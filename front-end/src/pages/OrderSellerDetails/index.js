@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getSellerOrdersById, updateSaleStatus } from '../../utils/axios';
 import TableData from '../../components/TableData';
-import TableHead from '../../components/TableHead';
 import NavBar from '../../components/Cards/NavBar';
 
 const OrderSellerDetails = ({ match }) => {
@@ -33,7 +32,6 @@ const OrderSellerDetails = ({ match }) => {
       <NavBar />
       { orders.map((order) => (
         <div key={ order.id }>
-          { console.log(order.products[0].products) }
           <h3>
             Pedido:
             { ' ' }
@@ -64,13 +62,21 @@ const OrderSellerDetails = ({ match }) => {
           <button
             type="button"
             data-testid={ `${sellerOrder}button-dispatch-check` }
-            onClick={ () => sendStatus('Em trânsito') }
+            onClick={ () => sendStatus('Em Trânsito') }
             disabled={ order.status !== 'Preparando' }
           >
             Saiu para entrega
           </button>
           <table>
-            <TableHead />
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Sub-total</th>
+              </tr>
+            </thead>
             { order.products.map((product, index) => (
               <tbody key={ product.products.id }>
                 <tr>
@@ -88,7 +94,7 @@ const OrderSellerDetails = ({ match }) => {
                   />
                   <TableData
                     dataTest={ `${sellerOrder}element-order-table-unit-price-${index}` }
-                    content={ product.products.price
+                    content={ Number(product.products.price)
                       .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
                   />
                   <TableData

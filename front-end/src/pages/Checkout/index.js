@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../../context/Context';
 import NavBar from '../../components/Cards/NavBar';
-import TableHead from '../../components/TableHead';
 import TableBody from '../../components/TableBody';
 import Details from '../../components/Details';
 
 const Checkout = () => {
   const { cartItems, totalPrice, getTotalPrice, setCartItems } = useContext(MyContext);
   const [seller, setSeller] = useState(1);
+  console.log(setSeller);
   const [address, setAddress] = useState({
     address: '',
     number: '',
@@ -16,10 +16,6 @@ const Checkout = () => {
   useEffect(() => {
     getTotalPrice();
   }, [getTotalPrice]);
-
-  const handleSeller = ({ target: { value } }) => {
-    setSeller(Number(value));
-  };
 
   const handleChange = ({ target: { name, value } }) => {
     setAddress((prevState) => ({
@@ -36,7 +32,16 @@ const Checkout = () => {
     <>
       <NavBar />
       <table>
-        <TableHead />
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
         { cartItems
           .filter((product) => product.quantity !== 0)
           .map((cartItem, index) => (
@@ -62,7 +67,6 @@ const Checkout = () => {
           seller={ seller }
           address={ address }
           handleChange={ handleChange }
-          setAddress={ handleSeller }
         />
       </div>
     </>

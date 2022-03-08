@@ -14,4 +14,8 @@ TableData.propTypes = {
   content: PropTypes.string,
 }.isRequired;
 
+TableData.defaultProps = {
+  dataTest: '',
+};
+
 export default TableData;

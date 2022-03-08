@@ -73,3 +73,13 @@ export const getSellerOrdersById = async (id) => {
     return error.response;
   }
 };
+
+export const updateSaleStatus = async (id, status) => {
+  try {
+    const response = await axios.put(`${apiUrl}/seller/orders/${id}`,
+      { status_sale: status });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

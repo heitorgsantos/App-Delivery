@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getSellerOrdersById } from '../../utils/axios';
+import { getSellerOrdersById, updateSaleStatus } from '../../utils/axios';
 import TableData from '../../components/TableData';
 import TableHead from '../../components/TableHead';
+import NavBar from '../../components/Cards/NavBar';
 
 const OrderSellerDetails = ({ match }) => {
   const sellerOrder = 'seller_order_details__';
@@ -13,11 +14,7 @@ const OrderSellerDetails = ({ match }) => {
       const { params: { id } } = match;
       const response = await getSellerOrdersById(id);
       const filteredResponse = response.data
-        .filter((sell) => sell.id === Number(id))
-        .map((prod) => ({
-          ...prod,
-          /* Por enquanto está renderizando com um mock */
-          products: [{ id: 11, name: 'Stella Artois', quantity: 4, price: 3.49 }] }));
+        .filter((sell) => sell.id === Number(id));
       setOrders(filteredResponse);
     }, [match],
   );
@@ -26,10 +23,17 @@ const OrderSellerDetails = ({ match }) => {
     getOrders();
   }, [getOrders]);
 
+  const sendStatus = async (stat) => {
+    const { params: { id } } = match;
+    await updateSaleStatus(id, stat);
+  };
+
   return (
     <>
+      <NavBar />
       { orders.map((order) => (
         <div key={ order.id }>
+          { console.log(order.products[0].products) }
           <h3>
             Pedido:
             { ' ' }
@@ -52,35 +56,44 @@ const OrderSellerDetails = ({ match }) => {
           <button
             type="button"
             data-testid={ `${sellerOrder}button-preparing-check` }
+            onClick={ () => sendStatus('Preparando') }
+            disabled={ order.status !== 'Pendente' }
           >
             Preparar pedido
           </button>
           <button
             type="button"
             data-testid={ `${sellerOrder}button-dispatch-check` }
+            onClick={ () => sendStatus('Em trânsito') }
+            disabled={ order.status !== 'Preparando' }
           >
             Saiu para entrega
           </button>
           <table>
             <TableHead />
             { order.products.map((product, index) => (
-              <tbody key={ product.id }>
+              <tbody key={ product.products.id }>
                 <tr>
                   <TableData
+                    dataTest={ `${sellerOrder}element-order-table-item-number-${index}` }
                     content={ index + 1 }
                   />
                   <TableData
-                    content={ product.name }
+                    dataTest={ `${sellerOrder}element-order-table-name-${index}` }
+                    content={ product.products.name }
                   />
                   <TableData
-                    content={ product.quantity }
+                    dataTest={ `${sellerOrder}element-order-table-quantity-${index}` }
+                    content={ product.products.quantity }
                   />
                   <TableData
-                    content={ product.price
+                    dataTest={ `${sellerOrder}element-order-table-unit-price-${index}` }
+                    content={ product.products.price
                       .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
                   />
                   <TableData
-                    content={ (product.price * product.quantity)
+                    dataTest={ `${sellerOrder}element-order-table-sub-total-${index}` }
+                    content={ (product.products.price * product.quantity)
                       .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
                   />
                 </tr>

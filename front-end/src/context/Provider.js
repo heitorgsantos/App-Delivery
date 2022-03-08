@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import { fetchCustomerProducts, fetchOrders, fetchSellerOrders } from '../utils/axios';
+import { fetchCustomerProducts } from '../utils/axios';
 import { saveLocalStorage } from '../utils/localStorage';
 
 const MyProvider = ({ children }) => {
@@ -9,9 +9,7 @@ const MyProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
-  const [orders, setOrders] = useState([]);
   const [role, setRole] = useState('');
-  const [sellerOrders, setSellerOrders] = useState([]);
 
   const getProducts = async () => {
     const { data } = await fetchCustomerProducts();
@@ -27,19 +25,9 @@ const MyProvider = ({ children }) => {
   );
 
   // get orders from database
-  const getOrders = async () => {
-    const { data } = await fetchOrders();
-    setOrders(data);
-  };
 
-  const getSellerOrders = async () => {
-    const { data } = await fetchSellerOrders();
-    setSellerOrders(data);
-  };
   useEffect(() => {
     getProducts();
-    getOrders();
-    getSellerOrders();
   }, []);
 
   useEffect(() => {
@@ -58,10 +46,8 @@ const MyProvider = ({ children }) => {
     setCartItems,
     totalPrice,
     getTotalPrice,
-    orders,
     role,
     setRole,
-    sellerOrders,
   };
 
   return (

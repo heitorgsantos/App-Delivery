@@ -24,7 +24,9 @@ const OrderSellerDetails = ({ match }) => {
 
   const sendStatus = async (stat) => {
     const { params: { id } } = match;
-    await updateSaleStatus(id, stat);
+    const response = await updateSaleStatus(id, stat);
+    setOrders((prevState) => prevState.map((state) => (
+      { ...response.data, products: state.products })));
   };
 
   return (

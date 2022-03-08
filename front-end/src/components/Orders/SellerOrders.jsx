@@ -18,6 +18,7 @@ function SellerOrdersCard({ sellerOrder }) {
       <span
         data-testid={ `seller_orders__element-delivery-status-${id}` }
       >
+        { console.log(status) }
         { status }
       </span>
       <span
